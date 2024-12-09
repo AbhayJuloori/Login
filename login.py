@@ -1,43 +1,47 @@
 import streamlit as st
 
-# Function for checking login credentials
-def check_credentials(username, password):
-    # Simple static check for credentials
-    if username == "abhay" and password == "abhay":
-        return True
-    return False
+# Simulated user authentication dictionary
+users = {
+    "admin": "abhay",
+    "abhay": "abhay",
+}
 
-# Function to display the login page
-def login_page():
-    st.title("Login Page")
+def authenticate(username, password):
+    """Authenticate the user."""
+    return users.get(username) == password
 
-    # Input fields for username and password
+# Authentication form
+st.title("Login Page")
+
+menu = st.sidebar.selectbox("Menu", ["Login", "Register"])
+if menu == "Login":
+    st.subheader("Login")
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
-
-    # Check credentials when login button is pressed
     if st.button("Login"):
-        if check_credentials(username, password):
+        if authenticate(username, password):
             st.success("Login successful!")
-            # Set the session state for login status
-            st.session_state['logged_in'] = True
-            # Redirect to an external link after successful login
-            st.markdown('[Click here to go to the Home page](https://cloudassignmenthome.streamlit.app/)', unsafe_allow_html=True)
-            st.rerun()  # Rerun the app (optional, can be used to refresh or move to next step)
+            # Redirect to external link after login
+            st.markdown(
+                """<meta http-equiv="refresh" content="0; url=https://cloudassignmenthome.streamlit.app/">""",
+                unsafe_allow_html=True,
+            )
         else:
             st.error("Invalid username or password")
 
-# Main app function
-def main_app():
-    # Show the login page if not logged in
-    if 'logged_in' not in st.session_state or not st.session_state['logged_in']:
-        login_page()
-    else:
-        # After successful login, redirect the user to an external link
-        st.write("You are now logged in!")
-        # Add additional logic here if you want to show something more after successful login.
-        st.rerun()
+elif menu == "Register":
+    st.subheader("Register")
+    new_username = st.text_input("New Username")
+    new_password = st.text_input("New Password", type="password")
+    if st.button("Register"):
+        if new_username and new_password:
+            if new_username in users:
+                st.error("Username already exists")
+            else:
+                users[new_username] = new_password
+                st.success("Registration successful! You can now log in.")
+        else:
+            st.error("Please fill out both fields.")
 
-# Run the app
-if __name__ == "__main__":
-    main_app()
+# Display content to logged-in users
+st.write("Use the menu on the left to navigate.")
