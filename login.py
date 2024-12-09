@@ -37,10 +37,7 @@ if menu == "Login":
         if authenticate_user(username, password):
             st.success("Login successful!")
             # Redirect to external link
-            st.markdown(
-                """<meta http-equiv="refresh" content="0; url=https://www.example.com/">""",
-                unsafe_allow_html=True,
-            )
+            st.markdown('[Click here to go to the Home page](https://cloudassignmenthome.streamlit.app/)', unsafe_allow_html=True)
         else:
             st.error("Invalid username or password")
 
