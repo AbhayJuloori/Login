@@ -25,12 +25,11 @@ def authenticate_user(username, password):
     return False
 
 # Streamlit App
-st.title("Authentication System with MongoDB")
+st.title("Login Page")
 
 menu = st.sidebar.selectbox("Menu", ["Login", "Register"])
 
 if menu == "Login":
-    st.subheader("Login")
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
     if st.button("Login"):
