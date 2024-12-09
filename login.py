@@ -22,7 +22,7 @@ def login_page():
             # Set the session state for login status
             st.session_state['logged_in'] = True
             # Redirect to an external link after successful login
-            st.markdown('[Click here to go to the Home page](https://homepy-bx2rsnhevyrwh5wxkvynmy.streamlit.app/)', unsafe_allow_html=True)
+            st.markdown('[Click here to go to the Home page](https://cloudassignmenthome.streamlit.app/)', unsafe_allow_html=True)
             st.rerun()  # Rerun the app (optional, can be used to refresh or move to next step)
         else:
             st.error("Invalid username or password")
